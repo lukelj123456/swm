@@ -1,0 +1,19 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Page3.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Page2.cs" Line="207" Column="24" />
+      <File FileName="Assets/Scripts/Page3.cs" Line="224" Column="82" />
+      <File FileName="Assets/Scripts/Page6.cs" Line="90" Column="8" />
+      <File FileName="Assets/Scripts/Page1.cs" Line="39" Column="4" />
+      <File FileName="Assets/SceneMgr.cs" Line="82" Column="1" />
+      <File FileName="Assets/Scripts/Page4.cs" Line="24" Column="3" />
+      <File FileName="Assets/Scripts/Page5.cs" Line="144" Column="11" />
+      <File FileName="Assets/Createch Interactive/Panoramic Camera Creator/Scripts/PanoControls.cs" Line="15" Column="27" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
