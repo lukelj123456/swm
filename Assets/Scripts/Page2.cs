@@ -288,9 +288,9 @@ public class Page2 : MonoBehaviour {
 
         if (HorizontalX > offSetX)     //向前滑动
         {
-            setStartPlay(true);
-            if (getCurrentTotal() > 6)
+            if (getCurrentTotal() > 5)
                 return;
+            setStartPlay(true);
             changeTab(currentTotal, true);
             setCurrentTotal(getCurrentTotal() + 1);
             return;
