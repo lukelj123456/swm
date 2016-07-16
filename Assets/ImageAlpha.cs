@@ -12,6 +12,7 @@ public class ImageAlpha : MonoBehaviour {
     public bool isToZero = true;
     public bool isActive = false;
     public float delayTime = 0f;
+
 	// Use this for initialization
 	void Start () {
 	

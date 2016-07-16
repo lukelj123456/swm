@@ -76,10 +76,11 @@ public class SceneInfo : MonoBehaviour {
                 }
                 foreach (Transform node in bigMapLayer.transform)
                 {
-                    if (name.Length == 1)
+                    if (node.name.Length == 1)
                     {
                         foreach (Transform nodeChild in node.transform)//判断子节点是否是对应显示的gameObject
                         {
+                                Debug.Log("node  "+nodeChild.name);
                                 nodeChild.gameObject.SetActive(false);
                         }
                         node.gameObject.SetActive(true);
