@@ -21,9 +21,6 @@ public class PageScrollUV : MonoBehaviour
         spRender = this.gameObject.GetComponent<Image>();
         spRender.material.SetFloat("_ProgressX", 0);
         spRender.material.SetFloat("_ProgressY", 0);
-        Page2 page2 = SceneMgr.getInstance().sceneList[1].GetComponent<Page2>();
-        shouzhi = page2.shouzhiBtn;
-
     }
 
     public void initData()
@@ -52,8 +49,6 @@ public class PageScrollUV : MonoBehaviour
             if ((position.x /Screen.width)  < 0.2f || (position.y/Screen.height)< 0.2f)
                     return;
 
-            //Debug.Log("position " + position.x + " y = " + position.y + " z = " + position.z);
-
             float offSetX = position.x - baseScreenPosition.x;
             float offSetY = position.y - baseScreenPosition.y;
             if(offSetX > offSetY)
@@ -78,15 +73,15 @@ public class PageScrollUV : MonoBehaviour
             if (progressX >= 0.9f)
             {
                 shouzhi.SetActive(false);
-                //iTween.ColorTo(this.gameObject, iTween.Hash("a", 0, "time", 1, "oncomplete", "onCompleteActive", "oncompletetarget", gameObject));
-                this.gameObject.SetActive(false);
-                Invoke("onCompleteActive", 0.5f);
+                ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
+                imageAlpha.AlphaOnFalse();
+                Invoke("onCompleteActive", 2f);
+                return;
             }
             spRender.material.SetFloat("_ProgressX", progressX);
             spRender.material.SetFloat("_ProgressY", progressX);
         }
     }
-
 
     private Vector2 ScreenToGUIPoint(Vector2 v)
     {
