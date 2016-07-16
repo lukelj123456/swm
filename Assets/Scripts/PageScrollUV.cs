@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class PageScrollUV : MonoBehaviour
 {
     // Use this for initialization
-    private SpriteRenderer spRender = null;
+    private Image spRender = null;
     public GameObject shouzhi;
     private float progressX = 0.25f;
 
@@ -17,9 +18,12 @@ public class PageScrollUV : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        spRender = this.gameObject.GetComponent<SpriteRenderer>();
+        spRender = this.gameObject.GetComponent<Image>();
+        spRender.material.SetFloat("_ProgressX", 0);
+        spRender.material.SetFloat("_ProgressY", 0);
         Page2 page2 = SceneMgr.getInstance().sceneList[1].GetComponent<Page2>();
         shouzhi = page2.shouzhiBtn;
+
     }
 
     public void initData()
@@ -34,10 +38,9 @@ public class PageScrollUV : MonoBehaviour
     public void Update()
     {
         if (isComplete == true) return;
-        
-        //if ((Input.touchCount > 0 || Input.GetMouseButton(0)) && 
-        //    SceneMgr.getInstance().isPageClickByName("PageSrollUV"))
-        if (SceneMgr.getInstance().isPageClickByName("PageSrollUV"))
+
+        if ((Input.touchCount > 0 || Input.GetMouseButton(0)) && 
+            SceneMgr.getInstance().isPageClickByName("PageSrollUV"))
         {
             isStartPlay = true;
 
@@ -66,7 +69,7 @@ public class PageScrollUV : MonoBehaviour
             //Debug.Log("shouzhi local x =" + shouzhi.transform.localPosition.x+ " y = " + shouzhi.transform.localPosition.y);
             //Debug.Log("shouzhi position x =" + shouzhi.transform.position.x+ " y = " + shouzhi.transform.position.y);            
 
-            progressX = progressX + mouseX / 80;
+            progressX = position.x/Screen.width;
             if (progressX < 0)
                     progressX = 0;
         }

@@ -60,16 +60,16 @@ public class Page2 : MonoBehaviour {
         {
             SceneMgr.getInstance().handler360NeiShi();
         });
-        
-        for(int i = 0; i < navBtnList.Count; i++)
+
+        for (int i = 0; i < navBtnList.Count; i++)
         {
             GameObject obj = navBtnList[i];
             Button btn = obj.GetComponent<Button>();
-            btn.onClick.AddListener(delegate ()
+            btn.onClick.AddListener(delegate()
             {
                 int index = int.Parse(btn.name.Split('_')[1]);
                 setCurrentTotal(index);
-                changeTab(index - 1,true,true);
+                changeTab(index - 1, true, true);
             });
         }
 
@@ -100,6 +100,7 @@ public class Page2 : MonoBehaviour {
         {
             listPoint.Add(new Vector2(-535f + (i * 140) , 0));
         }
+        setCurrentTotal(0);
         initPointGroup();
         changeNavigation(0, false);
     }

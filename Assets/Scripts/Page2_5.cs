@@ -90,7 +90,8 @@ public class Page2_5 : MonoBehaviour
         endIndex = int.Parse(range.Split('_')[1]);
 
         SceneMgr.callBackPlayScene callBack = new SceneMgr.callBackPlayScene(setVisibleTrue);
-        StartCoroutine(SceneMgr.getInstance().playScene(startIndex, endIndex, sceneImagesList, startIndex, this.gameObject, callBack,0.02f));
+        //展开
+        StartCoroutine(SceneMgr.getInstance().playScene(startIndex, endIndex, sceneImagesList, startIndex, this.gameObject, callBack,0.001f));   
     }
 
     void OnDisable()
@@ -130,18 +131,15 @@ public class Page2_5 : MonoBehaviour
 
     public void hander360SelectImage()
     {
-        float offsetY = -1f;
-        
         Vector3 position = Input.mousePosition;
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
 
-
         if(Input.touchCount > 0)
         {
             Vector2 touch = Input.GetTouch(0).deltaPosition;
-            mouseX = touch.x /20;
-            mouseY = touch.y/20;
+            mouseX = touch.x /50;
+            mouseY = touch.y/50;
         }
 
         if (isBackFrame == true)
