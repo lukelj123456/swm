@@ -68,6 +68,7 @@ public class Page2 : MonoBehaviour {
             btn.onClick.AddListener(delegate ()
             {
                 int index = int.Parse(btn.name.Split('_')[1]);
+                setCurrentTotal(index);
                 changeTab(index - 1,true,true);
             });
         }
