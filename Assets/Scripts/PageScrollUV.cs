@@ -6,7 +6,7 @@ public class PageScrollUV : MonoBehaviour
     // Use this for initialization
     private SpriteRenderer spRender = null;
     public GameObject shouzhi;
-    public float progressX = 0;
+    private float progressX = 0.25f;
 
     public bool isStartPlay = false;
     public bool isComplete = false;
@@ -66,7 +66,7 @@ public class PageScrollUV : MonoBehaviour
             //Debug.Log("shouzhi local x =" + shouzhi.transform.localPosition.x+ " y = " + shouzhi.transform.localPosition.y);
             //Debug.Log("shouzhi position x =" + shouzhi.transform.position.x+ " y = " + shouzhi.transform.position.y);            
 
-            progressX = progressX + mouseX / 50;
+            progressX = progressX + mouseX / 80;
             if (progressX < 0)
                     progressX = 0;
         }
@@ -75,13 +75,12 @@ public class PageScrollUV : MonoBehaviour
             if (progressX >= 0.9f)
             {
                 shouzhi.SetActive(false);
-                //onCompleteActive();
                 //iTween.ColorTo(this.gameObject, iTween.Hash("a", 0, "time", 1, "oncomplete", "onCompleteActive", "oncompletetarget", gameObject));
-                Invoke("onCompleteActive", 1.0f);
+                this.gameObject.SetActive(false);
+                Invoke("onCompleteActive", 0.5f);
             }
-
-            //spRender.material.SetFloat("_ProgressX", progressX);
-            //spRender.material.SetFloat("_ProgressY", progressX);
+            spRender.material.SetFloat("_ProgressX", progressX);
+            spRender.material.SetFloat("_ProgressY", progressX);
         }
     }
 
@@ -93,7 +92,6 @@ public class PageScrollUV : MonoBehaviour
     public void onCompleteActive()
     {
         isStartPlay = false;
-        this.gameObject.SetActive(false);
         isComplete = true;
         
         SceneMgr.getInstance().setPageClick("page2", true);
