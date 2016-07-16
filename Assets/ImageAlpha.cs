@@ -28,6 +28,7 @@ public class ImageAlpha : MonoBehaviour {
         isActive = true;
         canvasGroup.alpha = 0f;
 
+        Debug.Log("ImageAlpha  "+this.gameObject.name);
         iTween.ValueTo(this.gameObject, iTween.Hash("from", 0, "to", 1, "time", showTime, "delay", delayTime, "easeType", iTween.EaseType.easeOutExpo,
             "onupdate", "updateFadeToOneTween", "onupdatetarget", this.gameObject,
             "oncompleteparams", this.gameObject));

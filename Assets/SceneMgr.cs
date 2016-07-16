@@ -238,7 +238,6 @@ public class SceneMgr : MonoBehaviour {
                     if (callBack != null)
                         callBack.Invoke();
                 }
-
             }
         }
 		else if((startIndex >= endIndex) && isForward == false)

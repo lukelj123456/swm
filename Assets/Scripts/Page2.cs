@@ -120,6 +120,7 @@ public class Page2 : MonoBehaviour {
 
     public void changeTab(int index,bool _isForward,bool isGotoAndStop = false)
     {
+        Debug.Log("changeTab  "+index +" isForward  "+_isForward+" isGotoAndStop  "+isGotoAndStop);
         Page6 page6 = SceneMgr.getInstance().sceneList[5].GetComponent<Page6>();
         if (index >= page6.sceneImagesList.Count)
             return;
@@ -139,6 +140,7 @@ public class Page2 : MonoBehaviour {
 
     void changeNavigation(int index,bool isForward)
     {
+        Debug.Log("changeNavigation  "+index+" isForward  "+isForward.ToString());
         int navIndex = index;
         if (isForward)
             navIndex = index + 1;
@@ -153,8 +155,11 @@ public class Page2 : MonoBehaviour {
                 "position", new Vector3(listPoint[navIndex].x, listPoint[navIndex].y, 0), "oncomplete", "onCompleteNavigatioin1",
                 "oncompletetarget", gameObject));
 
-                changePointGroup(currentSceneIndex);
-                pointLayer.SetActive(true);       
+                for (int i = 0; i < pointGroup.Count; i++)
+                {     
+                    pointGroup[i].SetActive(false);
+                }
+                Invoke("changePointGroup", 0.6f);
         }
 
         for (int i = 0; i < bottom1_1.Count; i++)
@@ -239,7 +244,8 @@ public class Page2 : MonoBehaviour {
 
     public void touchHandler(float HorizontalX, float offSetX, float VerticalY,float offSetY)
     {
-        if (VerticalY > offSetY && currentSceneIndex == 2 && getStartPlay() == false)
+        if (getStartPlay() == true) return;
+        if (VerticalY > offSetY && currentSceneIndex == 2)
         {
             GameObject scene6 = SceneMgr.getInstance().sceneList[5];
             SceneMgr.getInstance().setPageClick("Page6", false);
@@ -249,7 +255,7 @@ public class Page2 : MonoBehaviour {
             SceneMgr.getInstance().playScene(scene2_4, true);
             return;
         }
-        else if (VerticalY < -offSetY && currentSceneIndex == 2 && getStartPlay() == false)
+        else if (VerticalY < -offSetY && currentSceneIndex == 2)
         {
             GameObject scene2_4 = SceneMgr.getInstance().getScene(6);
             if (scene2_4 == null) return;
@@ -257,7 +263,7 @@ public class Page2 : MonoBehaviour {
             SceneMgr.getInstance().playScene(scene2_4, false);
             return;
         }
-        else if (VerticalY > offSetY && currentSceneIndex == 6 && getStartPlay() == false)
+        else if (VerticalY > offSetY && currentSceneIndex == 6)
         {
             GameObject scene2_5 = SceneMgr.getInstance().loadScene("scene2_5", 7);
             setStartPlay(true);
@@ -280,25 +286,30 @@ public class Page2 : MonoBehaviour {
                     return;
         }
 
-        if (HorizontalX > offSetX && isStartPlay == false)
+        if (HorizontalX > offSetX)     //向前滑动
         {
             setStartPlay(true);
+            if (getCurrentTotal() > 6)
+                return;
             changeTab(currentTotal, true);
-            setCurrentTotal(currentTotal + 1);
+            setCurrentTotal(getCurrentTotal() + 1);
+            return;
         }
-        else if (HorizontalX < -offSetX && isStartPlay == false)
+        else if (HorizontalX < -offSetX)
         {
             Page6 page6 = SceneMgr.getInstance().sceneList[5].GetComponent<Page6>();
             if (page6.currentShowIndex == 0)
                 return;
             setStartPlay(true);
+            if (currentTotal > 0)   //判断是否已经滑动到起点
+                setCurrentTotal(currentTotal - 1);
+            else
+                return;
             if (isForward == true)
-                changeTab(currentTotal - 1, false);
-            if (isForward == false)
+                changeTab(getCurrentTotal(), false);
+            else if (isForward == false)
             {
-                changeTab(currentTotal - 1, false);
-                if (currentTotal > 0)
-                    setCurrentTotal(currentTotal - 1);
+                changeTab(getCurrentTotal(), false);
             }
         }
     }
@@ -336,18 +347,11 @@ public class Page2 : MonoBehaviour {
         }
     }
 
-    public void changePointGroup(int sceneIndex)
+    public void changePointGroup()
     {
-        for (int i = 0; i < pointGroup.Count; i++)
-        {
-                pointGroup[i].SetActive(false);
-        }
-
-        GameObject scene= pointGroup[sceneIndex];
-        CanvasGroup canvasGroup = scene.GetComponent<CanvasGroup>();
-        if (canvasGroup != null)
-                canvasGroup.alpha = 0;        
-        scene.SetActive(true);
+        GameObject scene= pointGroup[currentSceneIndex];   
+        if(scene.activeSelf == false)
+            scene.SetActive(true);
     }
 
 
@@ -358,6 +362,10 @@ public class Page2 : MonoBehaviour {
 
     public void setStartPlay(bool _isStartPlay)
     {
+        if(_isStartPlay == false)
+        {
+            Debug.Log("isStartPlay");
+        }
         isStartPlay = _isStartPlay;
     }
 
