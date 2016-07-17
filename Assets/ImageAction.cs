@@ -58,6 +58,7 @@ public class ImageAction : MonoBehaviour {
                 this.gameObject.AddComponent<Button>();
         }
         currentIndex = 0;
+		isPlaying = false;
         Invoke("StartPlay", delayTime);
     }
 
