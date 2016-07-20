@@ -33,10 +33,12 @@ public class Page2_5 : MonoBehaviour
     //判断是否回复到原位
     public bool isBackFrame = false;
     // Use this for initialization
+    Page2 page2;
     void Start()
     {
         this.transform.localScale = new Vector3(1, 1, 1);
 		this.gameObject.SetActive (true);
+        page2 = SceneMgr.getInstance().sceneList[1].GetComponent<Page2>();
     }
 
     void OnEnable()
@@ -126,6 +128,7 @@ public class Page2_5 : MonoBehaviour
 
     public void DestoryObject()
     {
+        page2.pointGroup[2].SetActive(false);
         Destroy(this.gameObject);
     }
 

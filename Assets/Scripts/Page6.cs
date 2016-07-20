@@ -44,7 +44,11 @@ public class Page6 : MonoBehaviour {
     public void gotoAndStop(int index)
     {
         string range = initSceneData(index);
-        startIndex = int.Parse(range.Split('_')[0]);
+        if(index == 6)
+            startIndex = int.Parse(range.Split('_')[1]);
+        else
+            startIndex = int.Parse(range.Split('_')[0]);
+
         SceneMgr.callBackPlayScene callBack = new SceneMgr.callBackPlayScene(gotoAndStopCallBack);
         for(int i = 0;i< sceneImagesList.Count; i++)
         {
@@ -66,7 +70,7 @@ public class Page6 : MonoBehaviour {
         sceneRange3[2] = "34_47";
         sceneRange3[3] = "47_64";
         sceneRange3[4] = "64_91";
-        sceneRange3[5] = "91_106";
+        sceneRange3[5] = "91_107";
         return sceneRange3[index];
     }
 

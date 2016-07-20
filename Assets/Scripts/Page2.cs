@@ -268,6 +268,7 @@ public class Page2 : MonoBehaviour {
         else if (VerticalY > offSetY && currentSceneIndex == 6)
         {
             GameObject scene2_5 = SceneMgr.getInstance().loadScene("scene2_5", 7);
+            pointGroup[6].SetActive(true);
             setStartPlay(true);
             scene2_5.transform.localPosition = new Vector3(0, 0, 0);
             SceneMgr.getInstance().playScene(scene2_5, false);

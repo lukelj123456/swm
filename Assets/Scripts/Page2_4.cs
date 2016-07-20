@@ -81,6 +81,7 @@ public class Page2_4 : MonoBehaviour {
 
     void OnDisable()
     {
+        page2.pointGroup[2].SetActive(false);
 //        for (int i = 0; i < sceneImagesList.Count; i++)
 //        {
 //            GameObject obj = (sceneImagesList[i].transform.gameObject);
