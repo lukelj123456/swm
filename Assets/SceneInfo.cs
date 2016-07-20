@@ -16,6 +16,7 @@ public class SceneInfo : MonoBehaviour {
     /// </summary>
     public Image miniImage;
     public GameObject miniMapLayer;
+    public GameObject showBigMapBtn;
     public GameObject bigMapLayer;
     public Text miniTitle;
 
@@ -36,6 +37,8 @@ public class SceneInfo : MonoBehaviour {
     public GameObject minusLayer;
     public Text bigMapTitle;
     public Text bigMapDesc;
+
+    public GameObject closeMiniMapBtn;
     /// <summary>
     /// HasMap存储已经取到的Image
     /// </summary>
@@ -59,38 +62,38 @@ public class SceneInfo : MonoBehaviour {
                 ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
                 imageAlpha.AlphaOnFalse();
         });
-        GameObject obj = PointMgr.getInstance().getImageAction(name);
-        if (obj != null)//说明此次点击是播放一段序列帧动画
-        {
-                bigMapLayer.SetActive(true);
+        //GameObject obj = PointMgr.getInstance().getImageAction(name);
+        //if (obj != null)//说明此次点击是播放一段序列帧动画
+        //{
+        //        bigMapLayer.SetActive(true);
 
-                Transform backImageTransform = obj.transform.Find("back");
-                if(backImageTransform != null)
-                {
-                    Image img = backImageTransform.gameObject.GetComponent<Image>();
-                    Sprite sp = getSpriteByImageSrc(name); 
-                    if(sp != null)
-                    {
-                            img.sprite = sp;
-                    }
-                }
-                foreach (Transform node in bigMapLayer.transform)
-                {
-                    if (node.name.Length == 1)
-                    {
-                        foreach (Transform nodeChild in node.transform)//判断子节点是否是对应显示的gameObject
-                        {
-                                Debug.Log("node  "+nodeChild.name);
-                                nodeChild.gameObject.SetActive(false);
-                        }
-                        node.gameObject.SetActive(true);
-                    }
-                }
-                plusLayer.SetActive(false);
-                initBigMapLayer(name);
-                obj.SetActive(true);
-                return;
-        }        
+        //        Transform backImageTransform = obj.transform.Find("back");
+        //        if(backImageTransform != null)
+        //        {
+        //            Image img = backImageTransform.gameObject.GetComponent<Image>();
+        //            Sprite sp = getSpriteByImageSrc(name); 
+        //            if(sp != null)
+        //            {
+        //                    img.sprite = sp;
+        //            }
+        //        }
+        //        foreach (Transform node in bigMapLayer.transform)
+        //        {
+        //            if (node.name.Length == 1)
+        //            {
+        //                foreach (Transform nodeChild in node.transform)//判断子节点是否是对应显示的gameObject
+        //                {
+        //                        Debug.Log("node  "+nodeChild.name);
+        //                        nodeChild.gameObject.SetActive(false);
+        //                }
+        //                node.gameObject.SetActive(true);
+        //            }
+        //        }
+        //        plusLayer.SetActive(false);
+        //        initBigMapLayer(name);
+        //        obj.SetActive(true);
+        //        return;
+        //}        
 
         miniMapLayer.SetActive(true);
         bigMapLayer.SetActive(false);
@@ -101,15 +104,29 @@ public class SceneInfo : MonoBehaviour {
             miniImage.gameObject.SetActive(true);
             miniMapLayer.SetActive(true);
             miniMapLayer.name = "mini_" + name;
-            Button miniBtn = miniMapLayer.GetComponent<Button>();
+
+            Button closeMiniMap = closeMiniMapBtn.GetComponent<Button>();
+            closeMiniMapBtn.SetActive(false);
+            closeMiniMap.onClick.AddListener(delegate()
+            {
+                ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
+                imageAlpha.AlphaOnFalse();
+            });
+
+            closeMiniMapBtn.SetActive(true);
+
+            Button miniBtn = showBigMapBtn.GetComponent<Button>();
             miniTitle.text = PointMgr.getInstance().getTitleByIndex(int.Parse(sceneIndex) - 1, int.Parse(pageIndex) - 1);
             miniBtn.onClick.AddListener(delegate ()//show big map
             {
                 ImageAlpha imageAlpha = miniMapLayer.GetComponent<ImageAlpha>();
                 imageAlpha.AlphaOnFalse();
-                initBigMapLayer(name);
+                string sceneIndex0 = miniMapLayer.name.Split('_')[1];
+                string pageIndex0 = miniMapLayer.name.Split('_')[2];
+                string bigName = sceneIndex0+"_"+pageIndex0;
+                initBigMapLayer(bigName);
                 bigMapLayer.SetActive(true);
-                closeBtn.SetActive(true);
+                closeBtn.SetActive(true);                
             });
         }
     }
