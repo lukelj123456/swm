@@ -142,11 +142,10 @@ public class Page2_5 : MonoBehaviour
         {
             Vector2 touch = Input.GetTouch(0).deltaPosition;
             mouseX = touch.x /300;
-            mouseY = touch.y/300;
+            mouseY = touch.y/100;
         } else
         {
             mouseX = mouseX/10;
-            mouseY = mouseY/10;
         }
 
         if (isBackFrame == true)
