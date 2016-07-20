@@ -64,8 +64,8 @@ public class Page6 : MonoBehaviour {
         sceneRange3[0] = "0_13";
         sceneRange3[1] = "13_34";
         sceneRange3[2] = "34_47";
-        sceneRange3[3] = "47_68";
-        sceneRange3[4] = "68_91";
+        sceneRange3[3] = "47_64";
+        sceneRange3[4] = "64_91";
         sceneRange3[5] = "91_106";
         return sceneRange3[index];
     }
