@@ -43,6 +43,9 @@ public class SceneInfo : MonoBehaviour {
     /// HasMap存储已经取到的Image
     /// </summary>
     public Dictionary<string, Sprite> spriteList = new Dictionary<string, Sprite>();
+
+    //防止快速点击关闭了界面
+    bool isAllowClose = false;
     // Use this for initialization
     void Start () {
 	
@@ -59,47 +62,16 @@ public class SceneInfo : MonoBehaviour {
         Button close = closeBtn.GetComponent<Button>();
         close.onClick.AddListener(delegate()
         {
-                ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
-                imageAlpha.AlphaOnFalse();
+            closeSceneInfo();
         });
-        //GameObject obj = PointMgr.getInstance().getImageAction(name);
-        //if (obj != null)//说明此次点击是播放一段序列帧动画
-        //{
-        //        bigMapLayer.SetActive(true);
 
-        //        Transform backImageTransform = obj.transform.Find("back");
-        //        if(backImageTransform != null)
-        //        {
-        //            Image img = backImageTransform.gameObject.GetComponent<Image>();
-        //            Sprite sp = getSpriteByImageSrc(name); 
-        //            if(sp != null)
-        //            {
-        //                    img.sprite = sp;
-        //            }
-        //        }
-        //        foreach (Transform node in bigMapLayer.transform)
-        //        {
-        //            if (node.name.Length == 1)
-        //            {
-        //                foreach (Transform nodeChild in node.transform)//判断子节点是否是对应显示的gameObject
-        //                {
-        //                        Debug.Log("node  "+nodeChild.name);
-        //                        nodeChild.gameObject.SetActive(false);
-        //                }
-        //                node.gameObject.SetActive(true);
-        //            }
-        //        }
-        //        plusLayer.SetActive(false);
-        //        initBigMapLayer(name);
-        //        obj.SetActive(true);
-        //        return;
-        //}        
-
+        Invoke("SetAllowClose", 0.5f);
         miniMapLayer.SetActive(true);
         bigMapLayer.SetActive(false);
 
         if (isShowMiniMap == true)//show min map
         {
+            isShowMiniMap = false;
             miniImage.sprite = getSpriteByImageSrc(name);
             miniImage.gameObject.SetActive(true);
             miniMapLayer.SetActive(true);
@@ -107,10 +79,10 @@ public class SceneInfo : MonoBehaviour {
 
             Button closeMiniMap = closeMiniMapBtn.GetComponent<Button>();
             closeMiniMapBtn.SetActive(false);
+
             closeMiniMap.onClick.AddListener(delegate()
             {
-                ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
-                imageAlpha.AlphaOnFalse();
+                closeSceneInfo();
             });
 
             closeMiniMapBtn.SetActive(true);
@@ -128,6 +100,23 @@ public class SceneInfo : MonoBehaviour {
                 bigMapLayer.SetActive(true);
                 closeBtn.SetActive(true);                
             });
+        }
+    }
+
+    public void SetAllowClose()
+    {
+        isShowMiniMap = true;
+        isAllowClose = true;
+    }
+
+
+    public void closeSceneInfo()
+    {
+        if(isAllowClose == true)
+        {
+            ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
+            imageAlpha.AlphaOnFalse();
+            isAllowClose = false;
         }
     }
 
