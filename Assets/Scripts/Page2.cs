@@ -276,6 +276,7 @@ public class Page2 : MonoBehaviour {
 
         if (currentSceneIndex == 2)//判断如果当前是切换到2_4，并且为可用，直接返回
         {
+                pointGroup[2].SetActive(true);
                 GameObject temp = SceneMgr.getInstance().getScene(6);
                 if(temp != null && temp.activeSelf == true)
                     return;
@@ -352,7 +353,7 @@ public class Page2 : MonoBehaviour {
     public void changePointGroup()
     {
         GameObject scene= pointGroup[currentSceneIndex];   
-        if(scene.activeSelf == false)
+        if(scene.activeSelf == false & currentSceneIndex != 2 && currentSceneIndex != 6 )
             scene.SetActive(true);
     }
 
