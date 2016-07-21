@@ -13,7 +13,7 @@ public class Page2 : MonoBehaviour {
     public List<Vector2> listPoint;
 
     
-    public Button shouzhi;
+    //public Button shouzhi;
     
     /// <summary>
     /// 进度动画
@@ -49,6 +49,7 @@ public class Page2 : MonoBehaviour {
     public List<GameObject> pointClickList;
     public List<GameObject> pointGroup;
     public GameObject pointLayer;
+    public GameObject mainLayer;
     //当前所在的场景
     public int currentSceneIndex = 1;
     // Use this for initialization
@@ -70,7 +71,7 @@ public class Page2 : MonoBehaviour {
                 int index = int.Parse(btn.name.Split('_')[1]);
                 setCurrentTotal(index);
 
-                if (getStartPlay() == false)
+                if (getStartPlay() == true)
                 {
                         return;
                 }
@@ -130,7 +131,7 @@ public class Page2 : MonoBehaviour {
         Debug.Log("changeTab  "+index +" isForward  "+_isForward+" isGotoAndStop  "+isGotoAndStop);
         Page6 page6 = SceneMgr.getInstance().sceneList[5].GetComponent<Page6>();
         if (index >= page6.sceneImagesList.Count)
-            return;
+                return;
         isForward = _isForward;        
         SceneMgr.getInstance().sceneList[5].SetActive(true);
         SceneMgr.getInstance().sceneList[5].transform.localScale = new Vector3(1,1,1);
@@ -142,7 +143,11 @@ public class Page2 : MonoBehaviour {
         {
             page6.gotoAndStop(currentSceneIndex);
         }else
-		    page6.playScene(index);        
+		    page6.playScene(index);
+        if (currentSceneIndex > 0)
+            shouzhiBtn.SetActive(false);
+        else
+            shouzhiBtn.SetActive(true);
     }
 
     void changeNavigation(int index,bool isForward)
@@ -222,11 +227,8 @@ public class Page2 : MonoBehaviour {
     public bool handlerShouzhi()
     {
         //当前是否在pageScrollUV状态
-        bool isHandle =false;
-        if (shouzhi.gameObject.activeSelf == false)
-                isHandle = false;
-        if (SceneMgr.getInstance().isPageClickByName("PageSrollUV") == true)
-                return isHandle;
+        if (shouzhiBtn.gameObject.activeSelf == false || currentSceneIndex != 0 ||SceneMgr.getInstance().isPageClickByName("PageSrollUV") == true)
+                return false;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
@@ -239,14 +241,14 @@ public class Page2 : MonoBehaviour {
                 PageScrollUV pageScroll = SceneMgr.getInstance().scrollUV.GetComponent<PageScrollUV>();
                 if (pageScroll.isComplete == false)
                 {
-                    isHandle = true;
                     pageScroll.initData();
                     SceneMgr.getInstance().scrollUV.SetActive(true);
                     SceneMgr.getInstance().setPageClick("PageSrollUV", true);
+                    return true;
                 }
             }
         }
-        return isHandle;
+        return false;
     }
 
     public void touchHandler(float HorizontalX, float offSetX, float VerticalY,float offSetY)
