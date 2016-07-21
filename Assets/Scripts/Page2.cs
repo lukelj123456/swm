@@ -69,6 +69,11 @@ public class Page2 : MonoBehaviour {
             {
                 int index = int.Parse(btn.name.Split('_')[1]);
                 setCurrentTotal(index);
+
+                if (getStartPlay() == false)
+                {
+                        return;
+                }
                 changeTab(index - 1, true, true);
             });
         }

@@ -207,12 +207,6 @@ public class Page3 : MonoBehaviour {
                     plateImageList[i].gameObject.SetActive(false);
             }
         }
-
-        //if(index >= listImage.Count && listImage.Count > 0)
-        //{
-        //    SceneMgr.getInstance().setVisible((listImage[0].transform.gameObject), false);
-        //    plateImageList[0].gameObject.SetActive(false);
-        //}
     }
 
     public void setVisibleFlase()
@@ -225,14 +219,16 @@ public class Page3 : MonoBehaviour {
     void Update () {
 		if (this.gameObject.activeSelf == false)
 			return;
-		
+
+        Vector3 mouseY = Input.mousePosition;
+        if (mouseY.y < 120)
+        {
+            return;
+        }
 		if (Input.touchCount > 0)
 		{
 			Vector3 position = Input.GetTouch(0).position;
-			if (position.y < 100)
-			{
-				return;
-			}
+
 			float mouseX = Input.GetTouch(0).deltaPosition.x;
 			int countTotal = (int)(Mathf.Floor((mouseX/ Screen.width)*listImage.Count));
 			int tempCount = countTotal + progressTotal;
@@ -247,11 +243,6 @@ public class Page3 : MonoBehaviour {
 		}
 		else if (Input.GetMouseButton(0))
 		{
-			Vector3 mousePosition = Input.mousePosition;
-			if (mousePosition.y < 100)
-			{
-				return;
-			}
 			Vector3 position = Input.mousePosition;
 			float mouseX = Input.GetAxis("Mouse X");
 			int countTotal = (int)Mathf.Floor(mouseX * listImage.Count * 0.1f);
