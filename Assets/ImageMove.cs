@@ -20,7 +20,7 @@ public class ImageMove : MonoBehaviour {
 
     public void OnEnable()
     {
-        this.gameObject.transform.localPosition = startPoint;
+        //this.gameObject.transform.localPosition = startPoint;
         //iTween.MoveTo(this.gameObject, iTween.Hash("y", endY, "easeType", "easeIn", "time", 0.6f,
         //    "oncomplete", "onCompleteActive", "oncompletetarget", this.gameObject));
 

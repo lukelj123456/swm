@@ -233,7 +233,7 @@ public class Page2 : MonoBehaviour {
         RaycastHit hitInfo;
         if (Physics.Raycast(ray, out hitInfo))
         {
-            Debug.DrawLine(ray.origin, hitInfo.point);
+            Debug.DrawLine(ray.origin, hitInfo.point,Color.red,5);
             GameObject gameObj = hitInfo.collider.gameObject;
             Debug.Log("click object name is " + gameObj.name);
             if (gameObj.tag == "shouzhi")

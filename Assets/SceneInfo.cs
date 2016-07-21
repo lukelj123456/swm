@@ -27,8 +27,7 @@ public class SceneInfo : MonoBehaviour {
     /// Plus
     /// </summary>
     public GameObject plusBtn;
-    public GameObject plusLayer;
-    public Text plusTitle;
+    public GameObject pointBackGround;
 
     /// <summary>
     /// Minus
@@ -44,11 +43,13 @@ public class SceneInfo : MonoBehaviour {
     /// </summary>
     public Dictionary<string, Sprite> spriteList = new Dictionary<string, Sprite>();
 
+    Vector3 initMinusLayerPosition;
+
     //防止快速点击关闭了界面
     bool isAllowClose = false;
     // Use this for initialization
-    void Start () {
-	
+    void Start (){
+        initMinusLayerPosition = minusLayer.transform.localPosition;
 	}
 
     public void OnLoad(string name)
@@ -130,9 +131,21 @@ public class SceneInfo : MonoBehaviour {
             string pageIndex = bigName.Split('_')[1];
             bigMapTitle.text = PointMgr.getInstance().getTitleByIndex(int.Parse(sceneIndex) - 1, int.Parse(pageIndex) - 1);
             bigMapDesc.text = PointMgr.getInstance().getDescByIndex(int.Parse(sceneIndex) - 1, int.Parse(pageIndex) - 1);
-            plusTitle.text = PointMgr.getInstance().getTitleByIndex(int.Parse(sceneIndex) - 1, int.Parse(pageIndex) - 1);
-            plusLayer.SetActive(true);
-            minusLayer.SetActive(false);
+            bigMapDesc.enabled =false;
+            plusBtn.SetActive(true);
+            pointBackGround.SetActive(false);
+
+            Button minusLayerBtn = minusLayer.GetComponent<Button>();
+            minusLayerBtn.onClick.AddListener(delegate()
+            {
+                pointBackGround.SetActive(true);
+                minusBtn.SetActive(true);
+                ImageMove imageAction = minusLayer.GetComponent<ImageMove>();
+                imageAction.enabled = true;
+                plusBtn.SetActive(false);
+                bigMapDesc.enabled = true;
+            });
+
             foreach (Transform node in bigMapLayer.transform)
             {
                 if (node.name == sceneIndex)
@@ -154,21 +167,28 @@ public class SceneInfo : MonoBehaviour {
                         }
                         node.gameObject.SetActive(true);                
                 }
-                else if (name.Length == 1)
+                else if (node.name.Length == 1)
+                {
+                    foreach (Transform nodeChild in node.transform)//判断子节点是否是对应显示的gameObject
+                    {
+                        nodeChild.gameObject.SetActive(false);
+                    }
                     node.gameObject.SetActive(false);
+                }
+                    
             }
-            Button pBtn = plusBtn.GetComponent<Button>();
-            pBtn.onClick.AddListener(delegate ()
-            {
-                    minusLayer.SetActive(true);
-                    plusLayer.SetActive(false);
-            });
+            //Button pBtn = plusBtn.GetComponent<Button>();
+            //pBtn.onClick.AddListener(delegate ()
+            //{
+            //        minusLayer.SetActive(true);
+            //        plusLayer.SetActive(false);
+            //});
 
             Button mBtn = minusBtn.GetComponent<Button>();
             mBtn.onClick.AddListener(delegate ()
             {
                     minusLayer.SetActive(false);
-                    plusLayer.SetActive(true);
+                    //plusLayer.SetActive(true);
             });
     }
 
@@ -185,6 +205,8 @@ public class SceneInfo : MonoBehaviour {
     void OnDisable()
     {
             isShowMiniMap = true;
+            minusLayer.transform.localPosition = initMinusLayerPosition;
+            minusLayer.GetComponent<ImageMove>().enabled = false;
             SceneMgr.getInstance().setPageClick("Page2", true);
     }
 

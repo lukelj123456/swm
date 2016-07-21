@@ -221,7 +221,7 @@ public class Page3 : MonoBehaviour {
 			return;
 
         Vector3 mouseY = Input.mousePosition;
-        if (mouseY.y < 120)
+        if (mouseY.y < 300)
         {
             return;
         }
