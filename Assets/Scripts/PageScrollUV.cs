@@ -33,7 +33,6 @@ public class PageScrollUV : MonoBehaviour
         page2.mainLayer.SetActive(false);
         page2.pointLayer.SetActive(false);
         page2.sceneInfo.SetActive(false);
-
         
         spRender.material.SetFloat("_ProgressX", 0);
         spRender.material.SetFloat("_ProgressY", 0);
