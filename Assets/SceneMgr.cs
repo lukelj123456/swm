@@ -11,6 +11,10 @@ public class SceneMgr : MonoBehaviour {
     public CanvasGroup canvasGroupOne = null;
     public CanvasGroup canvasGroupZero = null;
 
+    public GameObject scene2_4;
+    public GameObject scene2_5;
+    
+
     public GameObject scrollUV;
 
     public string[] nameStr = {"2016款 1.8T 四驱尊享版 5座","2016款 1.8T 四驱精英版 7座","2016款 1.8T 两驱精英版 7座","2016款 1.8T 两驱尊享版 5座","2016款 1.8T 四驱尊享版 7座"};
@@ -104,6 +108,10 @@ public class SceneMgr : MonoBehaviour {
 		else {
 			Page2 page2 = sceneList[1].GetComponent<Page2>();
 			GameObject scene = (GameObject)Instantiate(Resources.Load("Frame/"+nameStr));
+            if (nameStr == "scene2_4")
+                scene2_4 = scene;
+            else if (nameStr == "scene2_5")
+                scene2_5 = scene;
 			scene.transform.parent = page2.sceneLink.transform;
 			sceneList[index] = scene;
 			return scene;
@@ -140,6 +148,17 @@ public class SceneMgr : MonoBehaviour {
                 if (page1 != null)
                     page1.setVisibleFlase();
 				if (page2 != null) {
+                    if (scene2_4 != null)
+                    {
+                        GameObject.Destroy(scene2_4);
+                        scene2_4 = null;
+                    }
+                    else if (scene2_5 != null)
+                    {
+                        GameObject.Destroy(scene2_5);
+                        scene2_5 = null;
+                    }
+                        
 					for(int m = 0 ; m < sceneList.Count ; m++ )
 					{
 						Page6 p6 = sceneList [m].GetComponent<Page6> ();

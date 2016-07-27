@@ -63,6 +63,7 @@ public class Page2 : MonoBehaviour {
 				{
 					return;
 				}
+                SceneMgr.getInstance().handler360NeiShi();
 				if(SceneMgr.getInstance().isPageClickByName("page2_4") == true)
 				{
 					return;
@@ -72,7 +73,7 @@ public class Page2 : MonoBehaviour {
 					return;
 				}
 
-				SceneMgr.getInstance().handler360NeiShi();
+				
 
         });
 
@@ -209,6 +210,12 @@ public class Page2 : MonoBehaviour {
     }
 
     void Update () {
+
+        Vector3 mouseY = Input.mousePosition;
+        if (mouseY.y < 300)
+        {
+            return;
+        }
         if (SceneMgr.getInstance().sceneList[0].activeSelf == true)
             return;
 		if (this.gameObject.activeSelf == false)
