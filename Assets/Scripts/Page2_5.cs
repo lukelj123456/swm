@@ -130,7 +130,7 @@ public class Page2_5 : MonoBehaviour
 
     public void DestoryObject()
     {
-        page2.pointGroup[2].SetActive(false);
+        page2.pointGroup[6].SetActive(false);
         Destroy(this.gameObject);
     }
 

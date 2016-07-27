@@ -42,6 +42,7 @@ public class Page2_4 : MonoBehaviour {
 
     public void playScene(int index)
     {
+        //page2.pointGroup[2].SetActive(true);
         sceneRange3 = new string[6];
         if (index < 0)
             index = 0;
