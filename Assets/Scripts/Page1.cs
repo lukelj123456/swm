@@ -13,17 +13,17 @@ public class Page1 : MonoBehaviour {
     void Start () {
         logoBtn.onClick.AddListener(delegate ()
         {
-            SceneMgr.getInstance().sceneList[1].SetActive(true);
+            //SceneMgr.getInstance().sceneList[1].SetActive(true);
             
             //SceneMgr.getInstance().setPageClick("page2", false);
             //SceneMgr.getInstance().setPageClick("page6", false);
 
-            GameObject objPage1 = SceneMgr.getInstance().sceneList[0];
-            ImageAlpha page1 = objPage1.GetComponent<ImageAlpha>();
+            GameObject scene1 = SceneMgr.getInstance().sceneList[0];
+            ImageAlpha page1 = scene1.GetComponent<ImageAlpha>();
             page1.AlphaOnFalse();
             
-            GameObject objPage2 = SceneMgr.getInstance().sceneList[1];
-            objPage2.SetActive(true);
+            GameObject scene2 = SceneMgr.getInstance().sceneList[1];
+            scene2.SetActive(true);
 
             //Page2 page = obj.GetComponent<Page2>();
             //page.layer.transform.localPosition = new Vector3(1280, 0, 0);
