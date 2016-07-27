@@ -127,8 +127,8 @@ public class PageScrollUV : MonoBehaviour
             page2.mainLayer.SetActive(true);
             page2.pointLayer.SetActive(true);
             page2.sceneInfo.SetActive(false);
-            //Invoke("onCompleteActive", 0.3f);
-            onCompleteActive();
+            Invoke("onCompleteActive", 0.3f);
+            //onCompleteActive();
         }
     }
 
