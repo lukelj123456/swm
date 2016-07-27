@@ -9,9 +9,12 @@ public class ImageAlpha : MonoBehaviour {
     public float startAlpha = 0.0f;
 
     public float showTime = 1.0f;
+    public float hideTime = 0.6f;
     public bool isToZero = true;
     public bool isActive = false;
     public float delayTime = 0f;
+
+    public iTween.EaseType earseType = iTween.EaseType.easeOutExpo;
 
 	// Use this for initialization
 	void Start () {
@@ -30,7 +33,7 @@ public class ImageAlpha : MonoBehaviour {
         canvasGroup.alpha = 0f;
 
         Debug.Log("ImageAlpha  "+this.gameObject.name);
-        iTween.ValueTo(this.gameObject, iTween.Hash("from", 0, "to", 1, "time", showTime, "delay", delayTime, "easeType", iTween.EaseType.easeOutExpo,
+        iTween.ValueTo(this.gameObject, iTween.Hash("from", 0, "to", 1, "time", showTime, "delay", delayTime, "easeType", earseType,
             "onupdate", "updateFadeToOneTween", "onupdatetarget", this.gameObject,
             "oncompleteparams", this.gameObject));
 
@@ -47,8 +50,9 @@ public class ImageAlpha : MonoBehaviour {
         }
         speedTemp = 0f;
         isToZero = true;
-		iTween.ValueTo(this.gameObject, iTween.Hash("from", 1, "to", 0, "time", 0.6f, "easeType", iTween.EaseType.easeOutExpo,
-            "onupdate", "updateFadeToZeroTween", "onupdatetarget", this.gameObject, "oncomplete", "updateFadeToZeroComplete",
+        iTween.ValueTo(this.gameObject, iTween.Hash("from", 1, "to", 0, "time", hideTime, "easeType", earseType,
+            "onupdate", "updateFadeToZeroTween", "onupdatetarget", this.gameObject, "oncomplete", 
+            "updateFadeToZeroComplete",
             "oncompleteparams", this.gameObject));
     }
 

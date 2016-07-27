@@ -17,16 +17,22 @@ public class Page1 : MonoBehaviour {
             
             //SceneMgr.getInstance().setPageClick("page2", false);
             //SceneMgr.getInstance().setPageClick("page6", false);
+
+            GameObject objPage1 = SceneMgr.getInstance().sceneList[0];
+            ImageAlpha page1 = objPage1.GetComponent<ImageAlpha>();
+            page1.AlphaOnFalse();
             
-            GameObject obj = SceneMgr.getInstance().sceneList[1];
-            Page2 page = obj.GetComponent<Page2>();
-            page.layer.transform.localPosition = new Vector3(1280, 0, 0);
+            GameObject objPage2 = SceneMgr.getInstance().sceneList[1];
+            objPage2.SetActive(true);
 
-            iTween.MoveTo(page.layer, iTween.Hash("speed", 2000f, "easeType", iTween.EaseType.linear, "islocal", true,
-                    "position", new Vector3(0, 0, 0),"oncompletetarget", gameObject));
+            //Page2 page = obj.GetComponent<Page2>();
+            //page.layer.transform.localPosition = new Vector3(1280, 0, 0);
 
-            iTween.MoveTo(layer, iTween.Hash("speed", 2000f, "easeType", iTween.EaseType.linear, "islocal", true,
-                    "position", new Vector3(-1300, 0, 0), "oncomplete","onCompleteActive", "oncompletetarget", gameObject));
+            //iTween.MoveTo(page.layer, iTween.Hash("speed", 2000f, "easeType", iTween.EaseType.linear, "islocal", true,
+            //        "position", new Vector3(0, 0, 0),"oncompletetarget", gameObject));
+
+            //iTween.MoveTo(layer, iTween.Hash("speed", 2000f, "easeType", iTween.EaseType.linear, "islocal", true,
+            //        "position", new Vector3(-1300, 0, 0), "oncomplete","onCompleteActive", "oncompletetarget", gameObject));
         });        
 		//Invoke("visibaleWenzi",0.5f);        
     }

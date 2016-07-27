@@ -16,6 +16,7 @@ public class Page6_1 : MonoBehaviour {
 	public List<GameObject> navTop2List;
 	public List<GameObject> navTopHandlerList;
 
+
     public GameObject backFog;
     public GameObject fontFog;
     public GameObject RedJianTou;
