@@ -244,6 +244,8 @@ public class Page2 : MonoBehaviour {
 
     public bool handlerShouzhi()
     {
+        if (SceneMgr.getInstance().scrollUV.activeSelf == true)
+            return false;
         //当前是否在pageScrollUV状态
         if (shouzhiBtn.gameObject.activeSelf == false || currentSceneIndex != 0 ||SceneMgr.getInstance().isPageClickByName("PageSrollUV") == true)
                 return false;

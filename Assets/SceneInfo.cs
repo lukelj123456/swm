@@ -124,6 +124,7 @@ public class SceneInfo : MonoBehaviour {
         if(isAllowClose == true)
         {
             ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
+            imageAlpha.hideTime = 0.6f;
             imageAlpha.AlphaOnFalse();
             isAllowClose = false;
         }

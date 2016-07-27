@@ -9,7 +9,6 @@ public class PageScrollUV : MonoBehaviour
     public GameObject shouzhi;
     private float progressX = 0.25f;
 
-    public bool isStartPlay = false;
     public bool isComplete = false;
 
     public Vector3 basePosition;
@@ -17,9 +16,33 @@ public class PageScrollUV : MonoBehaviour
     public Vector2 shouzhiScreenPosition;
     public Page2 page2;
 
-    public bool isTouch;
-
     public bool isStartComplete = false;
+
+    public enum platform
+    {
+        WIN,
+        IOS,
+        AND,
+    }
+
+
+    void Awake()
+    {
+#if UNITY_ANDROID                         
+        platformType = platform.AND;
+        Debug.Log("这里是安卓设备^_^");
+#endif
+
+#if UNITY_IPHONE
+        Debug.Log("这里是苹果设备>_<");
+        platformType = platform.IOS;
+#endif
+
+#if UNITY_STANDALONE_WIN
+        platformType = platform.WIN;
+#endif
+    }
+    public platform platformType;
     // Use this for initialization
     void Start()
     {
@@ -36,7 +59,7 @@ public class PageScrollUV : MonoBehaviour
         
         spRender.material.SetFloat("_ProgressX", 0);
         spRender.material.SetFloat("_ProgressY", 0);
-        updateProgress();
+        //updateProgress();
         isStartComplete = false;
         Invoke("StartComplete", 0.1f);
     }
@@ -56,16 +79,29 @@ public class PageScrollUV : MonoBehaviour
     // Update is called once per frame
     public void Update()
     {
-        if (isComplete == true) return;
-        isTouch = false;
-        if ((Input.touchCount > 0 || Input.GetMouseButton(0)))
+        //if (isComplete == true) return;
+       
+        if(platformType == platform.WIN)
         {
-            isTouch = true;
-            updateProgress();
-        }
-        else if (isTouch == false && isStartComplete == true)
+            if (Input.GetMouseButtonUp(0))
+            {
+                hideScrollUV();
+            }
+            //if(Input.GetMouseButtonDown(0))
+            //{
+                updateProgress();
+            //}
+
+        }else
         {
-                 hideScrollUV();
+                 if (Input.touchCount > 0)
+                {
+                    updateProgress();
+                }
+                if(Input.touchCount == 0)
+                {
+                    hideScrollUV();
+                }
         }
     }
 
@@ -73,14 +109,20 @@ public class PageScrollUV : MonoBehaviour
     {
         Vector3 position = Input.mousePosition;
         RectTransform shouzhiRect = shouzhi.GetComponent<RectTransform>();
-        float positionY = (float)(position.x - Screen.width/2) *((float)Screen.height/(float)Screen.width);
-        shouzhiRect.anchoredPosition = new Vector2(position.x - Screen.width/2, positionY);
+        Canvas canvas = SceneMgr.getInstance().sceneList[1].GetComponent<Canvas>();
+        Vector2 pos;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(canvas.transform as RectTransform, Input.mousePosition, canvas.worldCamera, out pos))
+        {        
+            pos.x = pos.x + 150;
+            float positionY = (float)(pos.x - Screen.width/2) *((float)Screen.height/(float)Screen.width);
+            shouzhiRect.anchoredPosition = new Vector2(pos.x - Screen.width/2, positionY);
+        }
+        
+        //float positionY = (float)(position.x - Screen.width/2) *((float)Screen.height/(float)Screen.width);
+        //shouzhiRect.anchoredPosition = new Vector2(position.x - Screen.width/2, positionY);
 
         Debug.Log("shouzhi anchoredPosition x =" + shouzhiRect.anchoredPosition.x+ " y = " + shouzhiRect.anchoredPosition.y);
         Debug.Log("Input.mousePosition  "+Input.mousePosition.x+ " input.mouseButton Y "+Input.mousePosition.y);
-
-        //Debug.Log("shouzhi local x =" + shouzhi.transform.localPosition.x+ " y = " + shouzhi.transform.localPosition.y);
-        //Debug.Log("shouzhi position x =" + shouzhi.transform.position.x+ " y = " + shouzhi.transform.position.y);            
 
         progressX = position.x/Screen.width;
         if (progressX < 0)
@@ -106,9 +148,15 @@ public class PageScrollUV : MonoBehaviour
             page2.mainLayer.SetActive(true);
             page2.pointLayer.SetActive(true);
             page2.sceneInfo.SetActive(false);
-            Invoke("onCompleteActive", 1f);
+            Invoke("onCompleteActive", 0.5f);
         }
     }
+
+    void OnDisable()
+    {
+        Debug.Log(" PageScrollUV.Log");
+    }
+
 
     private Vector2 ScreenToGUIPoint(Vector2 v)
     {
@@ -116,12 +164,10 @@ public class PageScrollUV : MonoBehaviour
     }
     public void onCompleteActive()
     {
-        isStartPlay = false;
         isComplete = false;
 
         RectTransform shouzhiRect = shouzhi.GetComponent<RectTransform>();
         shouzhiRect.anchoredPosition =  shouzhiScreenPosition;
-
         shouzhi.SetActive(true);
         SceneMgr.getInstance().setPageClick("page2", true);
         SceneMgr.getInstance().setPageClick("page6", true);
