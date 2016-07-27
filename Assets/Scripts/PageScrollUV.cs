@@ -64,7 +64,7 @@ public class PageScrollUV : MonoBehaviour
     {
         if(platformType == platform.WIN)
         {
-            if (Input.GetMouseButtonUp(0))
+            if (Input.GetMouseButtonUp(0) || Input.GetMouseButton(0) == false)
             {
                 hideScrollUV();
                 return;
@@ -119,10 +119,10 @@ public class PageScrollUV : MonoBehaviour
     {
         if(this.gameObject.activeSelf == true)
         {
-            ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
-            imageAlpha.AlphaOnFalse();
+            //ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
+            //imageAlpha.AlphaOnFalse();
             shouzhi.SetActive(false);
-            //this.gameObject.SetActive(false);
+            this.gameObject.SetActive(false);
             
             page2.mainLayer.SetActive(true);
             page2.pointLayer.SetActive(true);
