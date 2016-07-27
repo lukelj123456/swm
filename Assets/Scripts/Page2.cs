@@ -59,7 +59,21 @@ public class Page2 : MonoBehaviour {
         Button btnObj = btnMain360.GetComponent<Button>();
         btnObj.onClick.AddListener(delegate ()
         {
-            SceneMgr.getInstance().handler360NeiShi();
+				if (getStartPlay() == true)
+				{
+					return;
+				}
+				if(SceneMgr.getInstance().isPageClickByName("page2_4") == true)
+				{
+					return;
+				}
+				if(SceneMgr.getInstance().isPageClickByName("page2_5") == true)
+				{
+					return;
+				}
+
+				SceneMgr.getInstance().handler360NeiShi();
+
         });
 
         for (int i = 0; i < navBtnList.Count; i++)
@@ -75,7 +89,11 @@ public class Page2 : MonoBehaviour {
                 {
                         return;
                 }
-                changeTab(index - 1, true, true);
+					if(SceneMgr.getInstance().isPageClickByName("page2") == true)
+					{
+						changeTab(index - 1, true, true);
+
+					}
             });
         }
 

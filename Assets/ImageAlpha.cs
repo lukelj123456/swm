@@ -47,7 +47,7 @@ public class ImageAlpha : MonoBehaviour {
         }
         speedTemp = 0f;
         isToZero = true;
-		iTween.ValueTo(this.gameObject, iTween.Hash("from", 1, "to", 0, "time", 0.8f, "easeType", iTween.EaseType.easeOutExpo,
+		iTween.ValueTo(this.gameObject, iTween.Hash("from", 1, "to", 0, "time", 0.6f, "easeType", iTween.EaseType.easeOutExpo,
             "onupdate", "updateFadeToZeroTween", "onupdatetarget", this.gameObject, "oncomplete", "updateFadeToZeroComplete",
             "oncompleteparams", this.gameObject));
     }

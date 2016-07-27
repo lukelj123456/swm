@@ -138,8 +138,19 @@ public class SceneMgr : MonoBehaviour {
                 Page4 page4 = sceneList[i].GetComponent<Page4>();
                 Page5 page5 = sceneList[i].GetComponent<Page5>();
 
-                if (page2 != null)
-                    page2.setVisibleFlase();
+				if (page2 != null) {
+					for(int m = 0 ; m < sceneList.Count ; m++ )
+					{
+						Page6 p6 = sceneList [m].GetComponent<Page6> ();
+						Page2_5 p2_5 = sceneList [m].GetComponent<Page2_5> ();
+						if (p6 != null) {
+							sceneList [m].SetActive (false);
+							break;
+						}
+					}
+							
+					page2.setVisibleFlase ();
+				}
                 else if (page3 != null)
                     page3.setVisibleFlase();
                 else if (page4 != null)
@@ -339,6 +350,9 @@ public class SceneMgr : MonoBehaviour {
     {
         if (obj == null)
             return;
+		
+
+		Debug.Log ("gameObject.name =  "+obj.name+" isTrue  "+isTrue.ToString());
         if (isTrue)
         {
             if (obj.activeSelf == false)

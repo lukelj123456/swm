@@ -67,9 +67,17 @@ public class SceneInfo : MonoBehaviour {
         });
 
         Invoke("SetAllowClose", 0.5f);
+
+		if (int.Parse(sceneIndex) == 6) {
+			initBigMapLayer (name);				
+			miniMapLayer.SetActive (false);
+			bigMapLayer.SetActive (true);
+			minusLayer.SetActive (false);
+			return;
+		}
+
         miniMapLayer.SetActive(true);
         bigMapLayer.SetActive(false);
-
         if (isShowMiniMap == true)//show min map
         {
             isShowMiniMap = false;

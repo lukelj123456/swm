@@ -199,7 +199,7 @@ public class Page3 : MonoBehaviour {
                     (listImage[i].transform.gameObject).SetActive(true);
                     SceneMgr.getInstance().setVisible((listImage[i].transform.gameObject), true);
                     plateImageList[i].gameObject.SetActive(true);
-                    Debug.Log("change360SelectImage listImage  "+i);
+//                    Debug.Log("change360SelectImage listImage  "+i);
             }
             else
             {

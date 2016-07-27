@@ -33,7 +33,7 @@ public class Page4 : MonoBehaviour
         Button waishi = waishi360Btn.GetComponent<Button>();
         waishi.onClick.AddListener(delegate ()
         {
-            SceneMgr.getInstance().changeScene(4);
+            SceneMgr.getInstance().changeScene(3);
         });
 
 

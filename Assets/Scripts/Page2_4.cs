@@ -29,7 +29,7 @@ public class Page2_4 : MonoBehaviour {
 
     void OnEnable()
     {
-        //SceneMgr.getInstance().setPageClick("page2", false);
+		SceneMgr.getInstance().setPageClick("page2_4", true);
             for (int i = 0; i < sceneImagesList.Count; i++)
             {
                 GameObject obj = (sceneImagesList[i].transform.gameObject);
@@ -81,6 +81,7 @@ public class Page2_4 : MonoBehaviour {
 
     void OnDisable()
     {
+		SceneMgr.getInstance().setPageClick("page2_4", false);
         page2.pointGroup[2].SetActive(false);
 //        for (int i = 0; i < sceneImagesList.Count; i++)
 //        {

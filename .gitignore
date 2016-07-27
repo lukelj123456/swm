@@ -45,3 +45,8 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+*.info
+Library/metadata/00/00000000000000005100000000000000
+*.backup
+*.dll
+*.xml

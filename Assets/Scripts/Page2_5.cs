@@ -26,8 +26,8 @@ public class Page2_5 : MonoBehaviour
     public Vector3 scaleImage = new Vector3(1.3f, 1.3f, 1.0f);
 
     public List<Image> sceneAreaImagesList;
-    private int startAreaIndex = 12;
-    private int endAreaIndex = 44;
+    private int startAreaIndex = 4;
+    private int endAreaIndex = 35;
 
     public bool isPlayAreaImage = true;
     //判断是否回复到原位
@@ -45,6 +45,7 @@ public class Page2_5 : MonoBehaviour
     {
         current360ShowIndex = 0;
         sceneAreaImagesList = new List<Image>();
+		SceneMgr.getInstance().setPageClick("page2_5", true);
         for (int i = 0; i < sceneImagesList.Count; i++)
         {
             GameObject obj = (sceneImagesList[i].transform.gameObject);
@@ -83,8 +84,8 @@ public class Page2_5 : MonoBehaviour
             index = 0;
         else if (index >= sceneRange3.Length)
             index = sceneRange3.Length - 1;
-        sceneRange3[0] = "0_11";
-        sceneRange3[1] = "12_44";
+        sceneRange3[0] = "0_6";
+        sceneRange3[1] = "7_36";
         string range = sceneRange3[index];
 
         Debug.Log("current frame start = " + range + " index  " + index);
@@ -104,6 +105,7 @@ public class Page2_5 : MonoBehaviour
             obj.transform.localScale = scaleImage;
             SceneMgr.getInstance().setVisible(obj, false);
         }
+		SceneMgr.getInstance().setPageClick("page2_5", false);
     }
 
     // Update is called once per frame
@@ -141,7 +143,7 @@ public class Page2_5 : MonoBehaviour
         if(Input.touchCount > 0)
         {
             Vector2 touch = Input.GetTouch(0).deltaPosition;
-            mouseX = touch.x /300;
+            mouseX = touch.x /500;
             mouseY = touch.y/100;
         } else
         {
