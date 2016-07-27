@@ -26,29 +26,13 @@ public class PageScrollUV : MonoBehaviour
     }
 
 
-    void Awake()
-    {
-#if UNITY_ANDROID                         
-        platformType = platform.AND;
-        Debug.Log("这里是安卓设备^_^");
-#endif
-
-#if UNITY_IPHONE
-        Debug.Log("这里是苹果设备>_<");
-        platformType = platform.IOS;
-#endif
-
-#if UNITY_STANDALONE_WIN
-        platformType = platform.WIN;
-#endif
-    }
     public platform platformType;
+
     // Use this for initialization
     void Start()
     {
 
     }
-
     void OnEnable()
     {
         page2 = SceneMgr.getInstance().sceneList[1].GetComponent<Page2>();
@@ -59,7 +43,6 @@ public class PageScrollUV : MonoBehaviour
         
         spRender.material.SetFloat("_ProgressX", 0);
         spRender.material.SetFloat("_ProgressY", 0);
-        //updateProgress();
         isStartComplete = false;
         Invoke("StartComplete", 0.1f);
     }
@@ -74,33 +57,30 @@ public class PageScrollUV : MonoBehaviour
         basePosition = shouzhi.transform.position;
         baseScreenPosition = Input.mousePosition;
         RectTransform shouzhiRect = shouzhi.GetComponent<RectTransform>();
-        shouzhiScreenPosition = shouzhiRect.anchoredPosition;
+        shouzhiScreenPosition = new Vector2(-385f, -288f);
     }
     // Update is called once per frame
     public void Update()
     {
-        //if (isComplete == true) return;
-       
         if(platformType == platform.WIN)
         {
             if (Input.GetMouseButtonUp(0))
             {
                 hideScrollUV();
+                return;
             }
-            //if(Input.GetMouseButtonDown(0))
-            //{
-                updateProgress();
-            //}
+            updateProgress();
 
         }else
         {
+                if (Input.touchCount == 0)
+                {
+                    hideScrollUV();
+                    return;
+                }
                  if (Input.touchCount > 0)
                 {
                     updateProgress();
-                }
-                if(Input.touchCount == 0)
-                {
-                    hideScrollUV();
                 }
         }
     }
@@ -117,9 +97,6 @@ public class PageScrollUV : MonoBehaviour
             float positionY = (float)(pos.x - Screen.width/2) *((float)Screen.height/(float)Screen.width);
             shouzhiRect.anchoredPosition = new Vector2(pos.x - Screen.width/2, positionY);
         }
-        
-        //float positionY = (float)(position.x - Screen.width/2) *((float)Screen.height/(float)Screen.width);
-        //shouzhiRect.anchoredPosition = new Vector2(position.x - Screen.width/2, positionY);
 
         Debug.Log("shouzhi anchoredPosition x =" + shouzhiRect.anchoredPosition.x+ " y = " + shouzhiRect.anchoredPosition.y);
         Debug.Log("Input.mousePosition  "+Input.mousePosition.x+ " input.mouseButton Y "+Input.mousePosition.y);
@@ -145,10 +122,13 @@ public class PageScrollUV : MonoBehaviour
             ImageAlpha imageAlpha = this.gameObject.GetComponent<ImageAlpha>();
             imageAlpha.AlphaOnFalse();
             shouzhi.SetActive(false);
+            //this.gameObject.SetActive(false);
+            
             page2.mainLayer.SetActive(true);
             page2.pointLayer.SetActive(true);
             page2.sceneInfo.SetActive(false);
-            Invoke("onCompleteActive", 0.5f);
+            //Invoke("onCompleteActive", 0.3f);
+            onCompleteActive();
         }
     }
 
@@ -157,20 +137,31 @@ public class PageScrollUV : MonoBehaviour
         Debug.Log(" PageScrollUV.Log");
     }
 
-
     private Vector2 ScreenToGUIPoint(Vector2 v)
     {
         return new Vector2(v.x - Screen.width/2, v.y - Screen.height/2);
     }
     public void onCompleteActive()
     {
-        isComplete = false;
-
         RectTransform shouzhiRect = shouzhi.GetComponent<RectTransform>();
         shouzhiRect.anchoredPosition =  shouzhiScreenPosition;
         shouzhi.SetActive(true);
         SceneMgr.getInstance().setPageClick("page2", true);
         SceneMgr.getInstance().setPageClick("page6", true);
         SceneMgr.getInstance().setPageClick("PageSrollUV", false);
+    }
+    void Awake()
+    {
+#if UNITY_ANDROID                         
+        platformType = platform.AND;
+#endif
+
+#if UNITY_IPHONE
+        platformType = platform.IOS;
+#endif
+
+#if UNITY_STANDALONE_WIN
+        platformType = platform.WIN;
+#endif
     }
 }
