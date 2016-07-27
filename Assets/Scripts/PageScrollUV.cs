@@ -105,7 +105,7 @@ public class PageScrollUV : MonoBehaviour
         if (progressX < 0)
             progressX = 0;
 
-        if (progressX >= 0.98f)
+        if (progressX >= 1f)
         {
             hideScrollUV();
             return;

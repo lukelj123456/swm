@@ -46,7 +46,6 @@ public class Page2_6 : MonoBehaviour
             SceneMgr.getInstance().setVisible(obj, false);
         }
         this.transform.localPosition = new Vector3(0, 0, 0);
-        //page2.setStartPlay(true);
         isForward = true;
         playScene(0);
 
