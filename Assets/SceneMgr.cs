@@ -137,7 +137,8 @@ public class SceneMgr : MonoBehaviour {
                 Page3 page3 = sceneList[i].GetComponent<Page3>();
                 Page4 page4 = sceneList[i].GetComponent<Page4>();
                 Page5 page5 = sceneList[i].GetComponent<Page5>();
-
+                if (page1 != null)
+                    page1.setVisibleFlase();
 				if (page2 != null) {
 					for(int m = 0 ; m < sceneList.Count ; m++ )
 					{

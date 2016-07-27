@@ -57,6 +57,12 @@ public class Page1 : MonoBehaviour {
         //}
 	}
 
+    public void setVisibleFlase()
+    {
+        ImageAlpha iAlpha = this.gameObject.GetComponent<ImageAlpha>();
+        iAlpha.AlphaOnFalse();
+    }
+
     void onCompleteActive()
     {
         this.gameObject.SetActive(false);

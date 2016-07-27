@@ -304,7 +304,6 @@ public class Page2 : MonoBehaviour {
 
         if (currentSceneIndex == 2)//判断如果当前是切换到2_4，并且为可用，直接返回
         {
-                pointGroup[2].SetActive(true);
                 GameObject temp = SceneMgr.getInstance().getScene(6);
                 if(temp != null && temp.activeSelf == true)
                     return;

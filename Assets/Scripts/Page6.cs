@@ -15,7 +15,6 @@ public class Page6 : MonoBehaviour {
     public List<Image> sceneImagesList;
 
     public bool isForward = true;
-
     public int updateIndex = 0;
 
     public Vector3 scaleImage =  new Vector3(1.3f,1.3f,1.0f);
@@ -29,9 +28,14 @@ public class Page6 : MonoBehaviour {
         for (int i = 0; i < sceneImagesList.Count; i++)
         {
             GameObject obj = (sceneImagesList[i].transform.gameObject);
-            obj.transform.localScale = scaleImage;
-            Debug.Log("sceneImageList "+i);
-            SceneMgr.getInstance().setVisible(obj, false);
+            if (obj != null)
+            {
+                obj.transform.localScale = scaleImage;
+                SceneMgr.getInstance().setVisible(obj, false);
+            }else
+            {
+                Debug.Log("sceneImageList  "+i +"is null");
+            }
         }
         this.transform.localPosition = new Vector3(0, 0, 0);
     }

@@ -29,6 +29,8 @@ public class Page2_4 : MonoBehaviour {
 
     void OnEnable()
     {
+        page2 = SceneMgr.getInstance().sceneList[1].GetComponent<Page2>();
+        page2.pointGroup[2].SetActive(true);
 		SceneMgr.getInstance().setPageClick("page2_4", true);
             for (int i = 0; i < sceneImagesList.Count; i++)
             {
@@ -42,7 +44,6 @@ public class Page2_4 : MonoBehaviour {
 
     public void playScene(int index)
     {
-        //page2.pointGroup[2].SetActive(true);
         sceneRange3 = new string[6];
         if (index < 0)
             index = 0;
