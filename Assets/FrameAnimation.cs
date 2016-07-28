@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public class FrameAnimation : MonoBehaviour
 {
     public int delatTime = 10;
+
+    public int repeatCount = 0;
     
     public List<GameObject> listImage;
     //动画索引值
@@ -42,6 +44,10 @@ public class FrameAnimation : MonoBehaviour
                             listImage[i].SetActive(false);
                     }
                     pointAnimationIndex++;
+                } else if(repeatCount == -1)
+                {
+                    pointAnimationIndex = 0;
+                    delatIndex = 0;
                 }
             }
         }

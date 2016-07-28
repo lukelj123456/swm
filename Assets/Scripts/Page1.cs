@@ -65,8 +65,11 @@ public class Page1 : MonoBehaviour {
 
     void onCompleteActive()
     {
-        this.gameObject.SetActive(false);
-        SceneMgr.getInstance().changeScene(2);
+        if(this.gameObject.activeSelf == true)
+        {
+            this.gameObject.SetActive(false);
+            SceneMgr.getInstance().changeScene(2);
+        }
     }
     // Update is called once per frame
     void Update () {

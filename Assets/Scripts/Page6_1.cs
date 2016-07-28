@@ -28,6 +28,9 @@ public class Page6_1 : MonoBehaviour {
 	public GameObject level2Group;
 
 
+    public List<GameObject> level2TabList;
+
+
     // Use this for initialization
     void Start () {
 		for (int i = 0; i < navHandlerList.Count; i++) {
@@ -69,13 +72,13 @@ public class Page6_1 : MonoBehaviour {
 		for (int i = 0; i < btn1List.Count; i++) {
 			btn1List [i].SetActive (true);
 			btn2List [i].SetActive (false);
-
+            level2TabList[i].SetActive(false);
 		}
 
 		Debug.Log ("BtnList  "+btn2List[2].name);
-		btn1List [index].SetActive (false);
+		btn1List [index].SetActive (true);
 		btn2List [index].SetActive (true);
-
+        level2TabList[index].SetActive(true);
 	}
 
 	public void changeTopNavBtnSelect(int index)
